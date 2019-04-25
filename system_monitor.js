@@ -26,7 +26,7 @@ execHandler("uname -r")
   .then(stdout => saveData('kernel', stdout))
   .catch(errorHandler);
 
-execHandler("top -d 0.5 -b -n2 | tail -n 10 | awk '{print $12}'")
+execHandler("top -d 1 -b -n2 | tail -n 10 | awk '{print $12}'")
   .then(stdout => saveData('toplist', stdout))
   .catch(errorHandler);
 
@@ -81,7 +81,7 @@ setInterval(function() {
       .then(stdout => saveData('toplist', stdout.split("\n").filter(item => item)))
       .catch(errorHandler);
 
-    execHandler("top -d 0.5 -b -n2 | grep 'Cpu(s)'|tail -n 1 | awk '{print $2 + $4}'")
+    execHandler("top -d 1 -b -n2 | grep 'Cpu(s)'|tail -n 1 | awk '{print $2 + $4}'")
       .then(stdout => {
         const date = new Date().getTime();
         saveData('cpuUsageUpdate', {date, use: parseFloat(stdout)});
